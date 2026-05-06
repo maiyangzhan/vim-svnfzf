@@ -59,7 +59,9 @@ function! svnfzf#files#toggle_mark() abort
   else
     let s:marked[l:cur.file] = l:cur
   endif
+  let l:lnum = line('.')
   call s:render_lines()
+  call cursor(l:lnum, 1)
   normal! j
 endfunction
 
