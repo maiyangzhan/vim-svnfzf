@@ -1,8 +1,17 @@
 " autoload/svnfzf/preview.vim — Preview panel auto-update
 
 let s:last_preview = ''
+let s:skip_next = 0
+
+function! svnfzf#preview#skip_next() abort
+  let s:skip_next = 1
+endfunction
 
 function! svnfzf#preview#on_cursor_moved(panel) abort
+  if s:skip_next
+    let s:skip_next = 0
+    return
+  endif
   if a:panel ==# 'files'
     call s:preview_file()
   elseif a:panel ==# 'log'

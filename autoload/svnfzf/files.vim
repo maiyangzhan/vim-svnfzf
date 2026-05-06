@@ -16,7 +16,7 @@ function! svnfzf#files#setup_keys() abort
     return
   endif
 
-  execute 'nnoremap <buffer> <silent> <Space> :call svnfzf#files#toggle_mark()<CR>'
+  execute 'nnoremap <buffer> <nowait> <silent> <Space> :call svnfzf#files#toggle_mark()<CR>'
   execute 'nnoremap <buffer> <silent> d :call svnfzf#files#do_diff()<CR>'
   execute 'nnoremap <buffer> <silent> c :call svnfzf#files#do_commit()<CR>'
   execute 'nnoremap <buffer> <silent> r :call svnfzf#files#do_revert()<CR>'
@@ -61,6 +61,7 @@ function! svnfzf#files#toggle_mark() abort
   endif
   let l:lnum = line('.')
   call s:render_lines()
+  call svnfzf#preview#skip_next()
   call cursor(l:lnum, 1)
   normal! j
 endfunction
