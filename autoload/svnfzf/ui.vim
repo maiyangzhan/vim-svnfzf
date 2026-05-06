@@ -18,7 +18,7 @@ function! svnfzf#ui#open() abort
   let s:prev_winid = win_getid()
 
   " Create hint bar at very bottom
-  botright 1new
+  silent botright 1new
   let s:winids.hints = win_getid()
   let s:bufnrs.hints = bufnr('%')
   call s:setup_panel_buf('svnfzf://hints')
@@ -26,20 +26,20 @@ function! svnfzf#ui#open() abort
 
   " Go back up, create files panel
   wincmd k
-  leftabove vnew
+  silent leftabove vnew
   let s:winids.files = win_getid()
   let s:bufnrs.files = bufnr('%')
   call s:setup_panel_buf('svnfzf://files')
 
   " Create log panel below files
-  belowright new
+  silent belowright new
   let s:winids.log = win_getid()
   let s:bufnrs.log = bufnr('%')
   call s:setup_panel_buf('svnfzf://log')
 
   " Preview panel is the original window
   call win_gotoid(s:prev_winid)
-  enew
+  silent enew
   let s:winids.preview = win_getid()
   let s:bufnrs.preview = bufnr('%')
   call s:setup_panel_buf('svnfzf://preview')
@@ -121,7 +121,7 @@ function! svnfzf#ui#set_preview(lines, filetype) abort
 endfunction
 
 function! s:setup_panel_buf(name) abort
-  execute 'file ' . a:name
+  silent! execute 'file ' . a:name
   setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
   setlocal nonumber norelativenumber signcolumn=no foldcolumn=0
   setlocal nomodifiable
