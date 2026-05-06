@@ -1,4 +1,4 @@
-# vim-svnfzf
+# vim-svn
 
 A Vim plugin for SVN version control with a lazygit-inspired panel layout using native Vim buffers and windows.
 
@@ -41,7 +41,7 @@ Press one key to see file status, preview diffs, browse logs, and execute SVN op
 ### vim-plug
 
 ```vim
-Plug 'maiyangzhan/vim-svnfzf'
+Plug 'maiyangzhan/vim-svn'
 ```
 
 ### Manual
@@ -58,7 +58,7 @@ vim -c 'helptags ~/.vim/doc' -c 'q'
 | Key / Command | Action |
 |---|---|
 | `<Leader>s` | Open panel layout |
-| `:SvnFzf` | Same as above |
+| `:Svn` | Same as above |
 
 ### Files Panel (top-left)
 
@@ -95,13 +95,13 @@ Use `Ctrl-w` + `h`/`j`/`k`/`l` to move between panels.
 
 ```vim
 " Trigger key (default: <Leader>s)
-let g:svnfzf_map = '<Leader>s'
+let g:svn_map = '<Leader>s'
 
 " Number of log entries to show (default: 50)
-let g:svnfzf_log_limit = 50
+let g:svn_log_limit = 50
 
 " Use delta/bat for diff highlighting (default: 1)
-let g:svnfzf_diff_highlight = 1
+let g:svn_diff_highlight = 1
 ```
 
 ## License

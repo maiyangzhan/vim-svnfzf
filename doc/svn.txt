@@ -1,0 +1,95 @@
+*svn.txt*  SVN version control with lazygit-style panel layout
+
+INTRODUCTION                                    *svn*
+
+vim-svn provides SVN version control operations through a lazygit-inspired
+panel layout using native Vim buffers and windows. All operations are
+accessible via single-key shortcuts without leaving Vim.
+
+REQUIREMENTS                                    *svn-requirements*
+
+- Vim 8.0+
+- SVN client
+- Optional: delta or bat (for diff syntax highlighting in preview)
+
+USAGE                                           *svn-usage*
+
+Press <Leader>s (or your configured key) to open the panel layout.
+
+LAYOUT                                          *svn-layout*
+
+The UI consists of four panels:
+
+  +---------------------------+-------------------------------+
+  |  Files (top-left)         |  Preview (right)              |
+  |  -- Modified ----------   |  auto-updates on cursor move  |
+  |  * [M]  src/tb_top.sv     |  shows diff or file content   |
+  |    [M]  src/env/agent.sv  |                               |
+  +---------------------------+                               |
+  |  Log (bottom-left)        |                               |
+  |  r12345  author  msg...   |                               |
+  +---------------------------+-------------------------------+
+  |  d:diff  c:commit  r:revert  a:add  SPACE:mark  q:quit    |
+  +------------------------------------------------------------+
+
+Navigate between panels with standard Ctrl-w + hjkl.
+
+FILES PANEL                                     *svn-files*
+
+Shows `svn status` output grouped by status (Modified/Added/Deleted/
+Untracked/Conflicted). The cursor's current file is auto-previewed
+in the preview panel. Marked files are prefixed with `*`.
+
+Keybindings:~
+  Space     Toggle mark on current file
+  d         Show diff in preview panel
+  c         Commit marked files (or current), prompts for message
+  r         Revert marked files (or current), with confirmation
+  a         `svn add` marked/current untracked files
+  x         Delete marked/current untracked files, with confirmation
+  m         Mark resolved for conflicted files
+  R         Refresh file list
+  u         Run `svn update`, show result in preview
+  q         Close all panels
+
+LOG PANEL                                       *svn-log*
+
+Shows `svn log --limit N` entries. Moving the cursor auto-previews
+the verbose commit detail (`svn log -v -r <rev>`).
+
+Keybindings:~
+  d         Show full `svn diff -c <rev>` in preview
+  Enter     Same as d
+  R         Refresh log
+  q         Close all panels
+
+PREVIEW PANEL                                   *svn-preview*
+
+Read-only panel that auto-updates based on the active left panel.
+Scrollable with normal Vim motions (j/k/Ctrl-d/Ctrl-u).
+
+Keybindings:~
+  q         Close all panels
+
+HINT BAR                                        *svn-hints*
+
+Single-line bar at the bottom showing available keybindings for
+the currently focused panel. Updates automatically.
+
+CONFIGURATION                                   *svn-config*
+
+g:svn_map                                       *g:svn_map*
+  Trigger key mapping. Default: '<Leader>s'
+
+g:svn_log_limit                                 *g:svn_log_limit*
+  Number of log entries to show. Default: 50
+
+g:svn_diff_highlight                            *g:svn_diff_highlight*
+  Use bat/delta for diff highlighting. Default: 1
+
+COMMANDS                                        *svn-commands*
+
+:Svn                                            *:Svn*
+  Open the panel layout. Same as pressing the trigger key.
+
+ vim:tw=78:ts=8:ft=help:norl:
